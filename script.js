@@ -6,24 +6,33 @@ let gameboard = ['','','','','','','','','']
 
 // An IIFE Module that is used for checking if the game has been Won by the player or not
 const game = (function(){
-    const check = () =>{
-    for(let i = 0; i<winningconditions+1; i++){
-        let [a,b,c] = winningconditions[i]
-        if([gameboard[a],gameboard[b],gameboard[c]] == ['x','x','x']){
-            return console.log('The player Won');
-        }
+    // Checks if the game is won or not -- also checks if the game is draw
+    const check = () =>{    
+
+        for(let i of winningconditions){
+            const [a,b,c] = i;
+            if(gameboard[a] === 'x'& gameboard[b] === 'x' & gameboard[c] === 'x'){
+                console.log('The player Won');
+        }}
+    return true
+    }
+
+    // Player move -- checks the board if the player plays on same tile or if the board is draw
     const move = (a) =>{
+        if(prevent(a)){
         gameboard[a] = 'x';
         console.log(gameboard);
+        }
     }
+    //prevents Player to play on the same tile
     const prevent = (a) =>{
         if(gameboard[a] === 'x'){
             console.log('Already X has been placed')
-            return 
+            return false
         }
+        return true
     }
     return {check,move};
-
-    } }
-})();
+    } 
+)();
 
