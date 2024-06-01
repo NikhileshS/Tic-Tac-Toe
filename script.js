@@ -13,8 +13,9 @@ const game = (function(){
             const [a,b,c] = i;
             if(gameboard[a] === 'x'& gameboard[b] === 'x' & gameboard[c] === 'x'){
                 console.log('The player Won');
+                return false;
         }}
-    return true
+    return true;
     }
 
     // Player move -- checks the board if the player plays on same tile or if the board is draw
@@ -32,7 +33,22 @@ const game = (function(){
         }
         return true
     }
-    return {check,move};
+    return {check,prevent};
     } 
 )();
 
+// Factory Function for the player control
+function player(){
+    const move = (a) =>{
+        if(game.prevent(a)){
+            if(game.check()){
+                gameboard[a] = 'x';
+                console.log(gameboard);
+                game.check();
+            }
+        }
+    }
+    return {move}
+}
+
+const user = player();
