@@ -8,47 +8,67 @@ let gameboard = ['','','','','','','','','']
 const game = (function(){
     // Checks if the game is won or not -- also checks if the game is draw
     const check = () =>{    
-
+        if(gameboard.includes('')){
         for(let i of winningconditions){
             const [a,b,c] = i;
             if(gameboard[a] === 'x'& gameboard[b] === 'x' & gameboard[c] === 'x'){
                 console.log('The player Won');
                 return false;
+            }
+            else if(gameboard[a] === 'o' & gameboard[b] === 'o' & gameboard[c] === 'o'){
+                console.log('The Computer Won');
+                return false;
+            }
         }}
-    return true;
-    }
-
-    // Player move -- checks the board if the player plays on same tile or if the board is draw
-    const move = (a) =>{
-        if(prevent(a)){
-        gameboard[a] = 'x';
-        console.log(gameboard);
+        else{
+            console.log('Game Draw')
+            return false
         }
+    return true;
     }
     //prevents Player to play on the same tile
     const prevent = (a) =>{
-        if(gameboard[a] === 'x'){
-            console.log('Already X has been placed')
-            return false
+        if(gameboard[a] === 'x' || gameboard[a] === 'o' ){
+            console.log('Already placed')
+            return false;
         }
-        return true
+        return true;
     }
     return {check,prevent};
     } 
 )();
 
-// Factory Function for the player control
-function player(){
+// Factory Function for the player and computer control
+function player(key){
+    // Player movement
     const move = (a) =>{
         if(game.prevent(a)){
             if(game.check()){
-                gameboard[a] = 'x';
+                gameboard[a] = key;
                 console.log(gameboard);
                 game.check();
-            }
+                computer(computerchoice);
+            }}}
+    // This is used to allow computer to decide whether to pick X or O
+    const computerchoice = (a) =>{
+        if(key === 'x'){
+            return 'o';
         }
-    }
+        else{
+            return 'x';
+        }}
+    //Computer movement
+    const computer = (computerchoice) => {
+        while(true){
+        let move = Math.floor(Math.random() * 9);
+        if(game.prevent(move)){
+            if(game.check()){
+                gameboard[move] = computerchoice(key);
+                console.log(gameboard);
+                game.check();
+                break;
+        }}}}
     return {move}
 }
 
-const user = player();
+const user = player('x');
