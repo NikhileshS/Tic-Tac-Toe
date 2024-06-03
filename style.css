@@ -28,6 +28,7 @@ body{
     text-align: center;
     font-size: min(2rem,5vw);
     font-family: "Poppins";
+    border-radius: 15px;
 }
 
 .gridbox{
@@ -46,7 +47,9 @@ body{
     align-items: center;
     border-style:solid;
     border-color: black;
+    border-radius: 10px;
     font-size: 5rem;
+    font-weight: bolder;
     font-family: "Poppins";
 }
 
@@ -72,4 +75,26 @@ footer{
 .box:hover{
     background: #f95959;
     color: whitesmoke;
+}
+
+.reset{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    width: var(--left);
+    margin-left: var(--padding);
+    margin-top: var(--top);
+    border-color: black;
+    border-style: solid;
+    text-align: center;
+    font-size: min(2rem,5vw);
+    font-family: "Poppins";
+    border-radius: 15px;
+    font-weight: bolder;
+    background-color: rgba(17, 86, 216, 0.685);
+}
+
+.reset:hover{
+    background-color: rgb(5, 88, 241);
 }
