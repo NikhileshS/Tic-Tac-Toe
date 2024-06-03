@@ -2,7 +2,22 @@
 const winningconditions = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
 // This represents the game array, where the player interacts
-let gameboard = ['','','','','','','','','']
+let gameboard = ['','','','','','','','',''];
+
+const msg = document.querySelector('.msg');
+
+const box = document.querySelectorAll('.box');
+for(let i=0; i<box.length;i++){
+    box[i].addEventListener('click',()=>{
+            const user = player('x');
+            if(game.prevent(i)){
+                user.move(i);
+            }
+            else{
+                msg.textContent = "Already Placed"
+            }
+        })
+    }
 
 // An IIFE Module that is used for checking if the game has been Won by the player or not
 const game = (function(){
@@ -12,16 +27,27 @@ const game = (function(){
         for(let i of winningconditions){
             const [a,b,c] = i;
             if(gameboard[a] === 'x'& gameboard[b] === 'x' & gameboard[c] === 'x'){
-                console.log('The player Won');
+                msg.textContent = "The Player Won";
                 return false;
             }
             else if(gameboard[a] === 'o' & gameboard[b] === 'o' & gameboard[c] === 'o'){
-                console.log('The Computer Won');
+                msg.textContent = "The Computer Won";
                 return false;
             }
         }}
         else{
-            console.log('Game Draw')
+            for(let i of winningconditions){
+                const [a,b,c] = i;
+                if(gameboard[a] === 'x'& gameboard[b] === 'x' & gameboard[c] === 'x'){
+                    msg.textContent = "The Player Won"
+                    return false;
+                }
+                else if(gameboard[a] === 'o' & gameboard[b] === 'o' & gameboard[c] === 'o'){
+                    msg.textContent = "The Computer Won";
+                    return false;
+                }
+            }
+            msg.textContent = "Game Draw";
             return false
         }
     return true;
@@ -29,7 +55,6 @@ const game = (function(){
     //prevents Player to play on the same tile
     const prevent = (a) =>{
         if(gameboard[a] === 'x' || gameboard[a] === 'o' ){
-            console.log('Already placed')
             return false;
         }
         return true;
@@ -45,30 +70,27 @@ function player(key){
         if(game.prevent(a)){
             if(game.check()){
                 gameboard[a] = key;
+                box[a].textContent = 'X';
                 console.log(gameboard);
                 game.check();
-                computer(computerchoice);
-            }}}
-    // This is used to allow computer to decide whether to pick X or O
-    const computerchoice = (a) =>{
-        if(key === 'x'){
-            return 'o';
+                computer();
+            }}
         }
-        else{
-            return 'x';
-        }}
+
     //Computer movement
-    const computer = (computerchoice) => {
-        while(true){
+    const computer = () => {
+        while(gameboard.includes('')){
         let move = Math.floor(Math.random() * 9);
         if(game.prevent(move)){
             if(game.check()){
-                gameboard[move] = computerchoice(key);
+                gameboard[move] = 'o';
+                box[move].textContent = 'O';
                 console.log(gameboard);
                 game.check();
                 break;
-        }}}}
+        }
+        break;
+        }
+    }}
     return {move}
 }
-
-const user = player('x');
