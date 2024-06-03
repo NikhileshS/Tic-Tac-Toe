@@ -24,11 +24,11 @@ const gamecondition =(function(){
     const check = () =>{
         for(let i of winningconditions){
             const [a,b,c] = i;
-            if(gameboard[a] === 'x'& gameboard[b] === 'x' & gameboard[c] === 'x'){
+            if(gameboard[a] === 'x' && gameboard[b] === 'x' && gameboard[c] === 'x'){
                 msg.textContent = "The Player Won";
                 return false;
             }
-            else if(gameboard[a] === 'o' & gameboard[b] === 'o' & gameboard[c] === 'o'){
+            else if(gameboard[a] === 'o' && gameboard[b] === 'o' && gameboard[c] === 'o'){
                 msg.textContent = "The Computer Won";
                 return false;
             }
@@ -56,10 +56,7 @@ const game = (function(){
     }
     //prevents Player to play on the same tile
     const prevent = (a) =>{
-        if(gameboard[a] === 'x' || gameboard[a] === 'o' ){
-            return false;
-        }
-        return true;
+        return (gameboard[a] === 'x' || gameboard[a] === 'o' )? false : true;
     }
     return {check,prevent};
     } 
